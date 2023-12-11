@@ -7,13 +7,11 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data.db'
 db = SQLAlchemy(app)
 app.app_context().push()
 
+
 class ExcelData(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     data = db.Column(db.Text)
 
-@app.route('/')
-def index():
-    return render_template('index.html')
 
 @app.route('/upload', methods=['POST'])
 def upload():
@@ -35,6 +33,7 @@ def upload():
         db.session.commit()
 
         return jsonify({'data': json_data})
+
 
 if __name__ == '__main__':
     db.create_all()
